@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BNPKata", "BNPKata\BNPKata.csproj", "{28A2D805-78DB-49B4-99D1-9739800C1DA9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BNPKataTest", "BNPKataTest\BNPKataTest.csproj", "{494D138C-D55D-4FD7-9AF0-1C50AB55D1E2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{28A2D805-78DB-49B4-99D1-9739800C1DA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28A2D805-78DB-49B4-99D1-9739800C1DA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28A2D805-78DB-49B4-99D1-9739800C1DA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28A2D805-78DB-49B4-99D1-9739800C1DA9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{494D138C-D55D-4FD7-9AF0-1C50AB55D1E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{494D138C-D55D-4FD7-9AF0-1C50AB55D1E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{494D138C-D55D-4FD7-9AF0-1C50AB55D1E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{494D138C-D55D-4FD7-9AF0-1C50AB55D1E2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
