@@ -4,6 +4,6 @@ namespace BNPKata
 {
     public interface ITravel
     {
-        string Compute(List<Tap> tapsList);
+        CustomerSummaries Compute(List<Tap> tapsList);
     }
 }

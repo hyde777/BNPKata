@@ -2,6 +2,6 @@
 {
     public interface ITravelControler
     {
-        string Price(string inputPath);
+        void Price(string inputPath);
     }
 }

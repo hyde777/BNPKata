@@ -1,10 +1,9 @@
 ﻿namespace BNPKata
 {
-    public class Zone : IZone
+    public class Zone
     {
-        public Zone(string argName, int argPriceOfInsideTrip)
+        public Zone(string argName, int argPriceOfInsideTrip, string[] argStations)
         {
-            throw new System.NotImplementedException();
         }
     }
 }

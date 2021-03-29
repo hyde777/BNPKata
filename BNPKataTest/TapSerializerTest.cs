@@ -22,7 +22,7 @@ namespace BNPKataTest
             
             mockTravel.Verify(x => x.Compute(new List<Tap>
             {
-                new() {UnixTimeStamp = @"1572242400", CustomerId = @"1", Station = @"A"}
+                new() {UnixTimeStamp = 1572242400, CustomerId = 1, Station = @"A"}
             }));
         }
     }

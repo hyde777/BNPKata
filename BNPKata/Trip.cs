@@ -1,6 +1,6 @@
 ﻿namespace BNPKata
 {
-    public class Trips
+    public class Trip
     {
         public string StationStart { get; init; }
         public string StationEnd { get; init; }

@@ -2,8 +2,8 @@
 {
     public record Tap
     {
-        public string UnixTimeStamp { get; init; }
-        public string CustomerId { get; init; }
+        public int UnixTimeStamp { get; init; }
+        public int CustomerId { get; init; }
         public string Station { get; init; }
     }
 }

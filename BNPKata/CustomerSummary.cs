@@ -4,6 +4,6 @@
     {
         public int CustomerId { get; init; }
         public int TotalCostInCents { get; init; }
-        public Trips[] Trips { get; init; }
+        public Trip[] Trips { get; init; }
     }
 }
