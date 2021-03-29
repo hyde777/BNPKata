@@ -10,12 +10,12 @@ namespace BNPKataTest
     public class TravelControllerTest
     {
         [Test]
-        public void RenameMe()
+        public void SerializeOneTap()
         {
             Mock<ITravel> mockTravel = new();
-            ISerializer serializer = new MyJsonSerializer();
+            ITapDeserializer tapDeserializer = new JsonTapDeserializer();
 
-            ITravelControler travelControler = new TravelControler(mockTravel.Object, serializer);
+            ITravelControler travelControler = new TravelControler(mockTravel.Object, tapDeserializer, Mock.Of<ICustomerSummaryDeserializer>());
 
             string inputPath = Path.Combine(AppContext.BaseDirectory, "InputTap.json");
             travelControler.Price(inputPath);

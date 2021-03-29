@@ -9,13 +9,15 @@ using Newtonsoft.Json.Linq;
 
 namespace BNPKata
 {
-    public class MyJsonSerializer : ISerializer
+    public class JsonTapDeserializer : ITapDeserializer
     {
+        private const string PROPERTY_NAME = "taps";
+
         public IEnumerable<Tap> Serialize(string rawPath)
         {
-            var raw = JObject.Parse(File.ReadAllText(rawPath))["taps"].Children().ToList();
+            var taps = JObject.Parse(File.ReadAllText(rawPath))[PROPERTY_NAME].Children().ToList();
 
-            foreach (JToken tap in raw)
+            foreach (JToken tap in taps)
             {
                 yield return tap.ToObject<Tap>();
             }

@@ -6,17 +6,18 @@ namespace BNPKata
     public class TravelControler : ITravelControler
     {
         private readonly ITravel _travel;
-        private readonly ISerializer _serializer;
+        private readonly ITapDeserializer _tapDeserializer;
 
-        public TravelControler(ITravel travel, ISerializer serializer)
+        public TravelControler(ITravel travel, ITapDeserializer tapDeserializer,
+            ICustomerSummaryDeserializer customerSummaryDeserializer)
         {
             _travel = travel;
-            _serializer = serializer;
+            _tapDeserializer = tapDeserializer;
         }
 
         public string Price(string inputPath)
         {
-            IEnumerable<Tap> tapsList = _serializer.Serialize(inputPath);
+            IEnumerable<Tap> tapsList = _tapDeserializer.Serialize(inputPath);
             return _travel.Compute(tapsList.ToList());
         }
     }
