@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace BNPKata
 {
@@ -6,12 +7,11 @@ namespace BNPKata
     {
         public Travel(IEnumerable<IZone> zones)
         {
-            throw new System.NotImplementedException();
         }
 
-        public string Price(object inputPath)
+        public string Compute(List<Tap> tapsList)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 }

@@ -1,7 +1,9 @@
-﻿namespace BNPKata
+﻿using System.Collections.Generic;
+
+namespace BNPKata
 {
     public interface ITravel
     {
-        string Price(object inputPath);
+        string Compute(List<Tap> tapsList);
     }
 }
