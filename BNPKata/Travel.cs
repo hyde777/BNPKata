@@ -32,13 +32,14 @@ namespace BNPKata
             {
                 Tap start = orderedTaps[i];
                 Tap end = orderedTaps[i + 1];
+                (Zone startZone, Zone endZone) valueTuple = _zones.From(start.Station, end.Station);
                 yield return new Trip
                 {
                     StationStart = start.Station, 
                     StationEnd = end.Station,
-                    ZoneFrom = _zones.From(start.Station),
-                    ZoneTo = _zones.To(end.Station),
-                    CostInCents = _zones.Cost(start.Station, end.Station),
+                    ZoneFrom = valueTuple.startZone.Matricule,
+                    ZoneTo = valueTuple.endZone.Matricule,
+                    CostInCents = _zones.Cost(valueTuple.startZone, valueTuple.endZone),
                     StartedJourneyAt = start.UnixTimeStamp
                 };
             }

@@ -5,9 +5,9 @@ namespace BNPKata
 {
     public interface IZones
     {
-        int From(string startStation);
+        (Zone, Zone) From(string startStation, string endStation);
         int To(string endStation);
-        int Cost(string startStation, string endStation);
+        int Cost(Zone startStation, Zone endStation);
     }
 
     public class Zones : IZones
@@ -19,9 +19,9 @@ namespace BNPKata
             _zones = zones;
         }
 
-        public int From(string startStation)
+        public (Zone, Zone) From(string startStation, string endStation)
         {
-            return _zones.First(x => x.ContainStation(startStation)).Matricule;
+            return (_zones.First(), _zones.First());
         }
 
         public int To(string endStation)
@@ -29,7 +29,7 @@ namespace BNPKata
             throw new System.NotImplementedException();
         }
 
-        public int Cost(string startStation, string endStation)
+        public int Cost(Zone startStation, Zone endStation)
         {
             throw new System.NotImplementedException();
         }
