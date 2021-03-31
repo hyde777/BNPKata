@@ -7,16 +7,16 @@ namespace BNPKata
     {
         public static IZones Zones()
         {
-            string zone1Name = "1";
-            string zone2Name = "2";
-            string zone3Name = "3";
-            string zone4Name = "4";
+            int zone1Name = 1;
+            int zone2Name = 2;
+            int zone3Name = 3;
+            int zone4Name = 4;
             string[] stations1 = {"A", "B"};
             string[] stations2 = {"C", "D", "E"};
             string[] stations3 = {"C", "E", "F"};
             string[] stations4 = {"F", "G", "H", "I"};
-            IEnumerable<(string name, int priceOfInsideTrip, string[] stations, IEnumerable<(string ZoneName, int Pricing)> travelTo)> zonesData =
-                new List<(string name, int priceOfInsideTrip, string[] stations, IEnumerable<(string ZoneName, int Pricing)> travelTo)>
+            IEnumerable<(int name, int priceOfInsideTrip, string[] stations, IEnumerable<(int ZoneName, int Pricing)> travelTo)> zonesData =
+                new List<(int name, int priceOfInsideTrip, string[] stations, IEnumerable<(int ZoneName, int Pricing)> travelTo)>
                 {
                     (zone1Name, 240, stations1, new[] {(zone3Name, 280), (zone4Name, 300)}),
                     (zone2Name, 240, stations2, new[] {(zone3Name, 280), (zone4Name, 300)}),

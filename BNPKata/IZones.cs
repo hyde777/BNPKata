@@ -11,14 +11,16 @@ namespace BNPKata
 
     public class Zones : IZones
     {
+        private readonly IEnumerable<Zone> _zones;
+
         public Zones(IEnumerable<Zone> zones)
         {
-            throw new System.NotImplementedException();
+            _zones = zones;
         }
 
         public int From(string startStation)
         {
-            throw new System.NotImplementedException();
+            return 1;
         }
 
         public int To(string endStation)

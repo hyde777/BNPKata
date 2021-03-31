@@ -2,7 +2,7 @@
 {
     public class Zone
     {
-        public Zone(string argName, int argPriceOfInsideTrip, string[] argStations)
+        public Zone(int matricule, int argPriceOfInsideTrip, string[] argStations)
         {
         }
     }

@@ -8,12 +8,12 @@ using NUnit.Framework;
 
 namespace BNPKataTest
 {
-    public class TravelTest
+    public class TripTest
     {
         [Test]
         public void CreateTripsAcceptance()
         {
-            ITravel travel = new Travel(new Zones(new List<Zone> {new("1", 200, new []{"A", "B"})}));
+            ITravel travel = new Travel(new Zones(new List<Zone> {new(1, 200, new []{"A", "B"})}));
 
             CustomerSummaries compute = travel.Compute(new List<Tap>
             {
@@ -21,13 +21,13 @@ namespace BNPKataTest
                 {
                     Station = "A",
                     CustomerId = 1,
-                    UnixTimeStamp = 1
+                    UnixTimeStamp = 10
                 },
                 new()
                 {
                     Station = "B",
                     CustomerId = 1,
-                    UnixTimeStamp = 2
+                    UnixTimeStamp = 20
                 },
             });
 
@@ -41,7 +41,7 @@ namespace BNPKataTest
                     {
                         new Trip
                         {
-                            StartedJourneyAt = 1,
+                            StartedJourneyAt = 10,
                             StationStart = "A",
                             StationEnd = "B",
                             ZoneFrom = 1,
