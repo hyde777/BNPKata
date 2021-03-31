@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace BNPKata
 {
@@ -8,7 +9,8 @@ namespace BNPKata
         public int ArgPriceOfInsideTrip { get; }
         private readonly string[] _argStations;
 
-        public Zone(int matricule, int argPriceOfInsideTrip, string[] argStations)
+        public Zone(int matricule, int argPriceOfInsideTrip, string[] argStations,
+            IEnumerable<(int ZoneName, int Pricing)> argTravelTo)
         {
             Matricule = matricule;
             ArgPriceOfInsideTrip = argPriceOfInsideTrip;

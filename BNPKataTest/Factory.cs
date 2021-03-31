@@ -23,7 +23,7 @@ namespace BNPKata
                     (zone3Name, 200, stations3, new[] {(zone1Name, 280), (zone2Name, 280)}),
                     (zone4Name, 200, stations4, new[] {(zone1Name, 300), (zone2Name, 300)})
                 };
-            IEnumerable<Zone> zones = zonesData.Select(x => new Zone(x.name, x.priceOfInsideTrip, x.stations));
+            IEnumerable<Zone> zones = zonesData.Select(x => new Zone(x.name, x.priceOfInsideTrip, x.stations, x.travelTo));
             return new Zones(zones);
         }
 

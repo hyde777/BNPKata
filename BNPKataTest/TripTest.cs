@@ -13,7 +13,7 @@ namespace BNPKataTest
         [Test]
         public void CreateTripsAcceptance()
         {
-            ITravel travel = new Travel(new Zones(new List<Zone> {new(1, 200, new []{"A", "B"})}));
+            ITravel travel = new Travel(new Zones(new List<Zone> {new(1, 200, new []{"A", "B"}, null)}));
 
             CustomerSummaries compute = travel.Compute(new List<Tap>
             {
