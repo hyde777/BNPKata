@@ -7,30 +7,19 @@ namespace BNPKataTest
 {
     public class ZonesTests
     {
-        [Test]
-        public void ShouldKnowWhichZoneIsStationA()
+        [TestCase(1)]
+        [TestCase(2)]
+        public void ShouldKnowWhichZoneIsStation(int matricule)
         {
+            string stationAsked = "A";
             IZones zones = new Zones(new List<Zone>
             {
-                new Zone(1,0, new []{"A", "B", "C"})
+                new(matricule,0, new []{ stationAsked})
             });
 
-            int zone = zones.From("A");
+            int zone = zones.From(stationAsked);
 
-            zone.Should().Be(1);
-        }
-
-        [Test]
-        public void ShouldKnowWhichZoneIsStationB()
-        {
-            IZones zones = new Zones(new List<Zone>
-            {
-                new Zone(2,0, new []{ "B", "C"})
-            });
-
-            int zone = zones.From("B");
-
-            zone.Should().Be(2);
+            zone.Should().Be(matricule);
         }
     }
 }
