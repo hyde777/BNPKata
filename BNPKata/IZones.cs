@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace BNPKata
 {
@@ -20,7 +21,7 @@ namespace BNPKata
 
         public int From(string startStation)
         {
-            return 1;
+            return _zones.First(x => x.ContainStation(startStation)).Matricule;
         }
 
         public int To(string endStation)

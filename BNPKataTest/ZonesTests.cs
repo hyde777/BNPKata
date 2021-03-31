@@ -19,7 +19,18 @@ namespace BNPKataTest
 
             zone.Should().Be(1);
         }
-        
-        
+
+        [Test]
+        public void ShouldKnowWhichZoneIsStationB()
+        {
+            IZones zones = new Zones(new List<Zone>
+            {
+                new Zone(2,0, new []{ "B", "C"})
+            });
+
+            int zone = zones.From("B");
+
+            zone.Should().Be(2);
+        }
     }
 }
