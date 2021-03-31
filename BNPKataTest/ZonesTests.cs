@@ -64,25 +64,25 @@ namespace BNPKataTest
             startZone.Should().Be(zoneWithAtLeastBothStation);
             endZone.Should().Be(zoneWithAtLeastBothStation);
         }
-        //
-        // [Test]
-        // public void ShouldChooseCheapestZonesWithStations()
-        // {
-        //     string startStation = "A";
-        //     string endStation = "B";
-        //     int zoneMatricule2 = 2;
-        //     Zone zone1 = new(1,100, new []{ startStation}, new List<(int ZoneName, int Pricing)>{(zoneMatricule2, 50)});
-        //     Zone zone2 = new(zoneMatricule2,60, new []{ endStation}, null);
-        //     IZones zones = new Zones(new List<Zone>
-        //     {
-        //         zone1,
-        //         zone2
-        //     });
-        //
-        //     (Zone startZone, Zone endZone) = zones.From(startStation, endStation);
-        //
-        //     startZone.Should().Be(zone1);
-        //     endZone.Should().Be(zone2);
-        // }
+        
+        [Test]
+        public void ShouldChooseCheapestZonesWithStations()
+        {
+            string startStation = "A";
+            string endStation = "B";
+            int zoneMatricule2 = 2;
+            Zone zone1 = new(1,100, new []{ startStation}, new List<(int ZoneName, int Pricing)>{(zoneMatricule2, 50)});
+            Zone zone2 = new(zoneMatricule2,60, new []{ endStation}, null);
+            IZones zones = new Zones(new List<Zone>
+            {
+                zone1,
+                zone2
+            });
+        
+            (Zone startZone, Zone endZone) = zones.From(startStation, endStation);
+        
+            startZone.Should().Be(zone1);
+            endZone.Should().Be(zone2);
+        }
     }
 }

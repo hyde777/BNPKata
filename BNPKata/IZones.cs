@@ -24,9 +24,22 @@ namespace BNPKata
             Zone inside = _zones
                 .Where(z => z.ContainStation(startStation) && z.ContainStation(endStation))
                 .OrderBy(x=> x.ArgPriceOfInsideTrip)
-                .First();
-            //Zone insideToOutside = _zones.Where(z => z.HaveStartStation(startStation) z.LinkedToZoneContainingStation(endStation))
+                .FirstOrDefault();
+            
+            (Zone inside, Zone outside) insideToOutside = _zones
+                .Where(z => z.ContainStation(startStation))
+                .OrderBy(z=> z.CheapestZoneToTravelAndPrice(EndZones(endStation)).pricing)
+                .Select(z => (z, z.CheapestZoneToTravelAndPrice(EndZones(endStation)).zone))
+                .FirstOrDefault();
+
+            if (inside == null)
+                return insideToOutside;
             return (inside, inside);
+        }
+
+        private IEnumerable<Zone> EndZones(string endStation)
+        {
+            return _zones.Where(x => x.ContainStation(endStation));
         }
 
         public int To(string endStation)
