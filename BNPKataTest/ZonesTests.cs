@@ -8,7 +8,7 @@ namespace BNPKataTest
     public class ZonesTests
     {
         [Test]
-        public void ShouldChooseCheapestZoneOfInsideTravel()
+        public void ShouldChooseZonesOfInsideTravel()
         {
             string startStation = "A";
             string endStation = "B";
