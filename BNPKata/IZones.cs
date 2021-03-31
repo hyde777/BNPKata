@@ -21,7 +21,8 @@ namespace BNPKata
 
         public (Zone, Zone) From(string startStation, string endStation)
         {
-            return (_zones.First(), _zones.First());
+            Zone first = _zones.OrderBy(x=> x.ArgPriceOfInsideTrip).First();
+            return (first, first);
         }
 
         public int To(string endStation)

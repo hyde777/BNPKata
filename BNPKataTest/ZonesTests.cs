@@ -16,12 +16,32 @@ namespace BNPKataTest
             Zone zone1 = new(matricule,100, new []{ startStation, endStation});
             IZones zones = new Zones(new List<Zone>
             {
-                zone1,
+                zone1
             });
 
-            var zone = zones.From(startStation, endStation);
+            (Zone startZone, Zone endZone) = zones.From(startStation, endStation);
 
-            zone.Should().Be(zone);
+            startZone.Should().Be(zone1);
+            endZone.Should().Be(zone1);
+        }
+
+        [Test]
+        public void ShouldChooseCheapestZoneWhenInsideTraveling()
+        {
+            string startStation = "A";
+            string endStation = "B";
+            Zone zone1 = new(1,100, new []{ startStation, endStation});
+            Zone cheapestZone = new(2,50, new []{ startStation, endStation});
+            IZones zones = new Zones(new List<Zone>
+            {
+                zone1,
+                cheapestZone
+            });
+
+            (Zone startZone, Zone endZone) = zones.From(startStation, endStation);
+
+            startZone.Should().Be(cheapestZone);
+            endZone.Should().Be(cheapestZone);
         }
     }
 }

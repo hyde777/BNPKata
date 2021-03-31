@@ -2,7 +2,7 @@
 
 namespace BNPKata
 {
-    public class Zone
+    public record Zone
     {
         public int Matricule { get; }
         public int ArgPriceOfInsideTrip { get; }
