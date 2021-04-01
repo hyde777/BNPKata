@@ -33,26 +33,13 @@ namespace BNPKata
         private IEnumerable<Trip> CreateTrips(List<Tap> taps)
         {
             var orderedTaps = taps.OrderBy(t => t.UnixTimeStamp).ToList();
-            for (int i = 0; i < orderedTaps.Count; i+= 2)
+            int eachPair = 2;
+            for (int i = 0; i < orderedTaps.Count; i+= eachPair)
             {
                 Tap start = orderedTaps[i];
                 Tap end = orderedTaps[i + 1];
-                yield return CreateTrip(start, end);
+                yield return Trip.Create(start, end, _zones);
             }
-        }
-
-        private Trip CreateTrip(Tap start, Tap end)
-        {
-            (Zone startZone, Zone endZone, int pricing) trip = _zones.CheapestTripFrom(start.Station, end.Station);
-            return new Trip
-            {
-                StationStart = start.Station,
-                StationEnd = end.Station,
-                ZoneFrom = trip.startZone.Matricule,
-                ZoneTo = trip.endZone.Matricule,
-                CostInCents = trip.pricing,
-                StartedJourneyAt = start.UnixTimeStamp
-            };
         }
     }
 }
