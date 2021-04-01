@@ -20,16 +20,16 @@ namespace BNPKata
 
             if (inside == null)
                 return insideToOutside;
-            if (inside.ArgPriceOfInsideTrip > insideToOutside.pricing)
+            if (inside.PriceOfInsideTrip > insideToOutside.pricing)
                 return insideToOutside;
-            return (inside, inside, inside.ArgPriceOfInsideTrip);
+            return (inside, inside, inside.PriceOfInsideTrip);
         }
 
         private Zone CheapestTripWhenInsideaZone(string startStation, string endStation)
         {
             return _zones
                 .Where(z => z.ContainStation(startStation) && z.ContainStation(endStation))
-                .OrderBy(x=> x.ArgPriceOfInsideTrip)
+                .OrderBy(x=> x.PriceOfInsideTrip)
                 .FirstOrDefault();
         }
 

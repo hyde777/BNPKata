@@ -6,29 +6,30 @@ namespace BNPKata
 {
     public record Zone
     {
+        private const int NONE_FOUND = int.MaxValue;
         public int Matricule { get; }
-        public int ArgPriceOfInsideTrip { get; }
-        private readonly string[] _argStations;
-        private readonly IEnumerable<(int ZoneName, int Pricing)> _argTravelTo;
+        public int PriceOfInsideTrip { get; }
+        private readonly string[] _stations;
+        private readonly IEnumerable<(int ZoneName, int Pricing)> _outsideLinkedZoneAndPricing;
 
-        public Zone(int matricule, int argPriceOfInsideTrip, string[] argStations,
-            IEnumerable<(int ZoneName, int Pricing)> argTravelTo)
+        public Zone(int matricule, int priceOfInsideTrip, string[] stations,
+            IEnumerable<(int ZoneName, int Pricing)> outsideLinkedZoneAndPricing)
         {
             Matricule = matricule;
-            ArgPriceOfInsideTrip = argPriceOfInsideTrip;
-            _argStations = argStations;
-            _argTravelTo = argTravelTo;
+            PriceOfInsideTrip = priceOfInsideTrip;
+            _stations = stations;
+            _outsideLinkedZoneAndPricing = outsideLinkedZoneAndPricing;
         }
 
         public bool ContainStation(string startStation)
         {
-            return _argStations.Contains(startStation);
+            return _stations.Contains(startStation);
         }
 
         public (Zone zone, int pricing) CheapestZoneToTravelAndPrice(IEnumerable<Zone> endZones)
         {
-            if (endZones == null) return (Zone.Max(), int.MaxValue);
-            var orderedEnumerable = _argTravelTo?.OrderBy(x => x.Pricing);
+            if (endZones == null) return (Zone.NoneFound(), NONE_FOUND);
+            var orderedEnumerable = _outsideLinkedZoneAndPricing?.OrderBy(x => x.Pricing);
             IEnumerable<Zone> enumerable = endZones.ToArray();
             if (orderedEnumerable != null)
                 foreach ((int ZoneName, int Pricing) t in orderedEnumerable)
@@ -37,12 +38,9 @@ namespace BNPKata
                         return (enumerable.First(z => z.Matricule == t.ZoneName), t.Pricing);
                 }
 
-            return (Zone.Max(), int.MaxValue);
+            return (Zone.NoneFound(), NONE_FOUND);
         }
 
-        private static Zone Max()
-        {
-            return new Zone(int.MaxValue, Int32.MaxValue, null, null);
-        }
+        private static Zone NoneFound() => new(NONE_FOUND, NONE_FOUND, null, null);
     }
 }
