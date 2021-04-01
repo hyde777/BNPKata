@@ -31,7 +31,8 @@ namespace BNPKataTest
                 },
             });
 
-            compute.Should().Be(new CustomerSummaries {Summaries = new[]
+            compute.Summaries.Should().ContainSingle()
+                .And.BeEquivalentTo( new[]
             {
                 new CustomerSummary
                 {
@@ -50,7 +51,7 @@ namespace BNPKataTest
                         }
                     }
                 }
-            }});
+            });
         }
     }
 }
