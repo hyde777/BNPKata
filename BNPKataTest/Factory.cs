@@ -27,11 +27,11 @@ namespace BNPKata
             return new Zones(zones);
         }
 
-        public static CustomerSummaries CustomerSummaries()
+        public static Journeys CustomerSummaries()
         {
-            CustomerSummaries customerSummaries = new CustomerSummaries
+            Journeys journeys = new Journeys
             {
-                Summaries = new[]
+                CustomerSummaries = new[]
                 {
                     new CustomerSummary
                     {
@@ -61,7 +61,7 @@ namespace BNPKata
                     }
                 }
             };
-            return customerSummaries;
+            return journeys;
         }
     }
 }

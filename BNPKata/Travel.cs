@@ -12,7 +12,7 @@ namespace BNPKata
             _zones = zones;
         }
 
-        public CustomerSummaries Compute(List<Tap> tapsList)
+        public Journeys Compute(List<Tap> tapsList)
         {
             IEnumerable<IGrouping<int,Tap>> tapByCustomerId = tapsList.GroupBy(tap => tap.CustomerId);
             IEnumerable<CustomerSummary> customerSummaries = tapByCustomerId.Select(x =>
@@ -26,7 +26,7 @@ namespace BNPKata
                     Trips = trips.ToArray()
                 };
             });
-            return new CustomerSummaries{Summaries = customerSummaries.ToArray()};
+            return new Journeys{CustomerSummaries = customerSummaries.ToArray()};
         }
 
         private IEnumerable<Trip> CreateTrips(List<Tap> taps)

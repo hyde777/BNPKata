@@ -23,8 +23,16 @@
       <Content Include="Output1.json">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Content>
+        <None Remove="Output2.json" />
+      <Content Include="Output2.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
       <None Remove="InputTap.json" />
       <Content Include="InputTap.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <None Remove="Input2.json" />
+      <Content Include="Input2.json">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Content>
     </ItemGroup>

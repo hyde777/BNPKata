@@ -7,6 +7,7 @@ using BNPKata;
 using FluentAssertions;
 using Microsoft.DotNet.InternalAbstractions;
 using Moq;
+using Newtonsoft.Json.Linq;
 using NUnit.Framework;
 
 namespace BNPKataTest
@@ -17,22 +18,44 @@ namespace BNPKataTest
         public void AcceptanceTest()
         {
             string inputPath = Path.Combine(AppContext.BaseDirectory, "Input1.json");
-            string testOutput = File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Output1.json"));
             
             ITapDeserializer tapDeserializer = new JsonTapDeserializer();
             Mock<ICustomerSummaryDeserializer> mock = new Mock<ICustomerSummaryDeserializer>();
-            ICustomerSummaryDeserializer customerDeserializer = mock.Object;
-            ITravelControler travelControlerControler = new TravelControler(new Travel(Factory.Zones()), tapDeserializer, customerDeserializer);
+            ICustomerSummaryDeserializer customerSerializer = mock.Object;
+            ITravelControler travelControlerControler = new TravelControler(new Travel(Factory.Zones()), tapDeserializer, customerSerializer, Mock.Of<IPrinter>());
 
             travelControlerControler.Price(inputPath);
 
-            mock.Setup(x => x.Deserialize(It.Is<CustomerSummaries>(cs => Equal(cs, Factory.CustomerSummaries()))));
+            mock.Setup(x => x.Serialize(It.Is<Journeys>(cs => Equal(cs, Factory.CustomerSummaries()))));
         }
 
-        private bool Equal(CustomerSummaries cs, CustomerSummaries cs2)
+        [Test]
+        public void AcceptanceWithGivenFiles()
         {
-            IOrderedEnumerable<CustomerSummary> customerSummaries = cs.Summaries.OrderBy(i => i.CustomerId);
-            IOrderedEnumerable<CustomerSummary> customerSummaries2 = cs2.Summaries.OrderBy(i => i.CustomerId);
+            string inputPath = Path.Combine(AppContext.BaseDirectory, "Input2.json");
+            string testOutput = File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Output2.json"));
+            
+            ITapDeserializer tapDeserializer = new JsonTapDeserializer();
+            ICustomerSummaryDeserializer customerSerializer = new JsonCustomerSummaryDeserializer();
+            Mock<IPrinter> mock = new();
+            ITravelControler travelControlerControler = new TravelControler(new Travel(Factory.Zones()), tapDeserializer, customerSerializer, mock.Object);
+
+            travelControlerControler.Price(inputPath);
+            
+            mock.Verify(x => x.Print(It.Is<string>(x => B(x, testOutput))));
+        }
+
+        private static bool B(string x, string testOutput)
+        {
+            JToken jToken = JToken.Parse(x);
+            JToken token = JToken.Parse(testOutput);
+            return JToken.DeepEquals(token, jToken);
+        }
+
+        private bool Equal(Journeys cs, Journeys cs2)
+        {
+            IOrderedEnumerable<CustomerSummary> customerSummaries = cs.CustomerSummaries.OrderBy(i => i.CustomerId);
+            IOrderedEnumerable<CustomerSummary> customerSummaries2 = cs2.CustomerSummaries.OrderBy(i => i.CustomerId);
             IEnumerable<(CustomerSummary First, CustomerSummary Second)> valueTuples = customerSummaries.Zip(customerSummaries2);
             foreach (var summaries in valueTuples)
             {

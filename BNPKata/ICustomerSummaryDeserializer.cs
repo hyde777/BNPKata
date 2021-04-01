@@ -2,6 +2,6 @@
 {
     public interface ICustomerSummaryDeserializer
     {
-        void Deserialize(CustomerSummaries customerSummaries);
+        string Serialize(Journeys journeys);
     }
 }

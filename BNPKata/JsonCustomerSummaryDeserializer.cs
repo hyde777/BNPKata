@@ -1,12 +1,18 @@
 ﻿using System;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace BNPKata
 {
     public class JsonCustomerSummaryDeserializer : ICustomerSummaryDeserializer
     {
-        public void Deserialize(CustomerSummaries customerSummaries)
+        public string Serialize(Journeys journeys)
         {
-            throw new NotImplementedException();
+            return JsonConvert.SerializeObject(journeys,
+                Formatting.Indented, new JsonSerializerSettings
+                {
+                    ContractResolver = new CamelCasePropertyNamesContractResolver()
+                });
         }
     }
 }

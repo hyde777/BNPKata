@@ -15,7 +15,7 @@ namespace BNPKataTest
         {
             ITravel travel = new Travel(new Zones(new List<Zone> {new(1, 200, new []{"A", "B"}, null)}));
 
-            CustomerSummaries compute = travel.Compute(new List<Tap>
+            Journeys compute = travel.Compute(new List<Tap>
             {
                 new()
                 {
@@ -31,7 +31,7 @@ namespace BNPKataTest
                 },
             });
 
-            compute.Summaries.Should().ContainSingle()
+            compute.CustomerSummaries.Should().ContainSingle()
                 .And.BeEquivalentTo( new[]
             {
                 new CustomerSummary
