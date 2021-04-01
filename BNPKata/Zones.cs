@@ -37,8 +37,8 @@ namespace BNPKata
         {
             return _zones
                 .Where(z => z.ContainStation(startStation))
-                .OrderBy(z=> z.CheapestZoneToTravelAndPrice(EndZones(endStation)).pricing)
-                .Select(z => (z, z.CheapestZoneToTravelAndPrice(EndZones(endStation)).zone, z.CheapestZoneToTravelAndPrice(EndZones(endStation)).pricing))
+                .OrderBy(z=> z.CheapestZoneToTravelOutside(EndZones(endStation)).pricing)
+                .Select(z => (z, z.CheapestZoneToTravelOutside(EndZones(endStation)).zone, z.CheapestZoneToTravelOutside(EndZones(endStation)).pricing))
                 .FirstOrDefault();
         }
 

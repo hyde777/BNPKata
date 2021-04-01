@@ -26,17 +26,17 @@ namespace BNPKata
             return _stations.Contains(startStation);
         }
 
-        public (Zone zone, int pricing) CheapestZoneToTravelAndPrice(IEnumerable<Zone> endZones)
+        public (Zone zone, int pricing) CheapestZoneToTravelOutside(IEnumerable<Zone> endZones)
         {
             if (endZones == null) return (Zone.NoneFound(), NONE_FOUND);
             var orderedEnumerable = _outsideLinkedZoneAndPricing?.OrderBy(x => x.Pricing);
             IEnumerable<Zone> enumerable = endZones.ToArray();
-            if (orderedEnumerable != null)
-                foreach ((int ZoneName, int Pricing) t in orderedEnumerable)
-                {
-                    if (enumerable.Any(z => z.Matricule == t.ZoneName))
-                        return (enumerable.First(z => z.Matricule == t.ZoneName), t.Pricing);
-                }
+            if (orderedEnumerable == null) return (Zone.NoneFound(), NONE_FOUND);
+            foreach ((int ZoneName, int Pricing) t in orderedEnumerable)
+            {
+                if (enumerable.Any(z => z.Matricule == t.ZoneName))
+                    return (enumerable.First(z => z.Matricule == t.ZoneName), t.Pricing);
+            }
 
             return (Zone.NoneFound(), NONE_FOUND);
         }
