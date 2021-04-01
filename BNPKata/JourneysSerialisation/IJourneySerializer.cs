@@ -1,6 +1,6 @@
 ﻿namespace BNPKata
 {
-    public interface ICustomerSummaryDeserializer
+    public interface IJourneySerializer
     {
         string Serialize(Journeys journeys);
     }

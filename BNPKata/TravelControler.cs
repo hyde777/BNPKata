@@ -7,17 +7,17 @@ namespace BNPKata
     {
         private readonly ITravel _travel;
         private readonly ITapDeserializer _tapDeserializer;
-        private readonly ICustomerSummaryDeserializer _customerSummaryDeserializer;
+        private readonly IJourneySerializer _journeySerializer;
         private readonly IPrinter _printer;
 
         public TravelControler(ITravel travel,
             ITapDeserializer tapDeserializer,
-            ICustomerSummaryDeserializer customerSummaryDeserializer, 
+            IJourneySerializer journeySerializer, 
             IPrinter printer)
         {
             _travel = travel;
             _tapDeserializer = tapDeserializer;
-            _customerSummaryDeserializer = customerSummaryDeserializer;
+            _journeySerializer = journeySerializer;
             _printer = printer;
         }
 
@@ -25,7 +25,7 @@ namespace BNPKata
         {
             IEnumerable<Tap> tapsList = _tapDeserializer.Serialize(inputPath);
             Journeys compute = _travel.Compute(tapsList.ToList());
-            string customerSummariesSerialized = _customerSummaryDeserializer.Serialize(compute);
+            string customerSummariesSerialized = _journeySerializer.Serialize(compute);
             _printer.Print(customerSummariesSerialized, outputPath);
         }
     }

@@ -17,8 +17,8 @@ namespace BNPKataTest
             string inputPath = Path.Combine(AppContext.BaseDirectory, "Input1.json");
             
             ITapDeserializer tapDeserializer = new JsonTapDeserializer();
-            Mock<ICustomerSummaryDeserializer> mock = new();
-            ICustomerSummaryDeserializer customerSerializer = mock.Object;
+            Mock<IJourneySerializer> mock = new();
+            IJourneySerializer customerSerializer = mock.Object;
             ITravelControler travelControlerControler = new TravelControler(new Travel(Factory.Zones()), tapDeserializer, customerSerializer, Mock.Of<IPrinter>());
 
             travelControlerControler.Price(inputPath, String.Empty);
@@ -69,7 +69,7 @@ namespace BNPKataTest
             string testOutput = File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Output2.json"));
             
             ITapDeserializer tapDeserializer = new JsonTapDeserializer();
-            ICustomerSummaryDeserializer customerSerializer = new JsonCustomerSummaryDeserializer();
+            IJourneySerializer customerSerializer = new JsonJourneySerializer();
             Mock<IPrinter> mock = new();
             ITravelControler travelControlerControler = new TravelControler(new Travel(Factory.Zones()), tapDeserializer, customerSerializer, mock.Object);
 

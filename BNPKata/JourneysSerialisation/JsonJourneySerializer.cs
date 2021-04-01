@@ -4,7 +4,7 @@ using Newtonsoft.Json.Serialization;
 
 namespace BNPKata
 {
-    public class JsonCustomerSummaryDeserializer : ICustomerSummaryDeserializer
+    public class JsonJourneySerializer : IJourneySerializer
     {
         public string Serialize(Journeys journeys)
         {

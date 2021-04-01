@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace BNPKata
 {
-    public record Zone
+    public class Zone
     {
         private const int NONE_FOUND = int.MaxValue;
         public int Matricule { get; }
@@ -12,7 +12,9 @@ namespace BNPKata
         private readonly string[] _stations;
         private readonly IEnumerable<(int ZoneName, int Pricing)> _outsideLinkedZoneAndPricing;
 
-        public Zone(int matricule, int priceOfInsideTrip, string[] stations,
+        public Zone(int matricule, 
+            int priceOfInsideTrip, 
+            string[] stations,
             IEnumerable<(int ZoneName, int Pricing)> outsideLinkedZoneAndPricing)
         {
             Matricule = matricule;
