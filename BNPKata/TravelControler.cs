@@ -10,8 +10,10 @@ namespace BNPKata
         private readonly ICustomerSummaryDeserializer _customerSummaryDeserializer;
         private readonly IPrinter _printer;
 
-        public TravelControler(ITravel travel, ITapDeserializer tapDeserializer,
-            ICustomerSummaryDeserializer customerSummaryDeserializer, IPrinter printer)
+        public TravelControler(ITravel travel,
+            ITapDeserializer tapDeserializer,
+            ICustomerSummaryDeserializer customerSummaryDeserializer, 
+            IPrinter printer)
         {
             _travel = travel;
             _tapDeserializer = tapDeserializer;
@@ -19,17 +21,12 @@ namespace BNPKata
             _printer = printer;
         }
 
-        public void Price(string inputPath)
+        public void Price(string inputPath, string outputPath)
         {
             IEnumerable<Tap> tapsList = _tapDeserializer.Serialize(inputPath);
             Journeys compute = _travel.Compute(tapsList.ToList());
             string customerSummariesSerialized = _customerSummaryDeserializer.Serialize(compute);
-            _printer.Print(customerSummariesSerialized);
+            _printer.Print(customerSummariesSerialized, outputPath);
         }
-    }
-
-    public interface IPrinter
-    {
-        void Print(string raw);
     }
 }

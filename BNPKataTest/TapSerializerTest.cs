@@ -18,7 +18,7 @@ namespace BNPKataTest
             ITravelControler travelControler = new TravelControler(mockTravel.Object, tapDeserializer, Mock.Of<ICustomerSummaryDeserializer>(), Mock.Of<IPrinter>());
 
             string inputPath = Path.Combine(AppContext.BaseDirectory, "InputTap.json");
-            travelControler.Price(inputPath);
+            travelControler.Price(inputPath, string.Empty);
             
             mockTravel.Verify(x => x.Compute(new List<Tap>
             {

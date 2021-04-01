@@ -27,41 +27,6 @@ namespace BNPKata
             return new Zones(zones);
         }
 
-        public static Journeys CustomerSummaries()
-        {
-            Journeys journeys = new Journeys
-            {
-                CustomerSummaries = new[]
-                {
-                    new CustomerSummary
-                    {
-                        CustomerId = 1,
-                        TotalCostInCents = 480,
-                        Trips = new[]
-                        {
-                            new Trip
-                            {
-                                StationStart = "A",
-                                StationEnd = "D",
-                                StartedJourneyAt = 1572242400,
-                                CostInCents = 240,
-                                ZoneFrom = 1,
-                                ZoneTo = 2
-                            },
-                            new Trip
-                            {
-                                StationStart = "D",
-                                StationEnd = "A",
-                                StartedJourneyAt = 1572282000,
-                                CostInCents = 240,
-                                ZoneFrom = 1,
-                                ZoneTo = 2
-                            }
-                        }
-                    }
-                }
-            };
-            return journeys;
-        }
+        
     }
 }

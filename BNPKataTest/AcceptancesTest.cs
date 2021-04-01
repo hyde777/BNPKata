@@ -1,11 +1,8 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using BNPKata;
-using FluentAssertions;
-using Microsoft.DotNet.InternalAbstractions;
 using Moq;
 using Newtonsoft.Json.Linq;
 using NUnit.Framework;
@@ -20,15 +17,51 @@ namespace BNPKataTest
             string inputPath = Path.Combine(AppContext.BaseDirectory, "Input1.json");
             
             ITapDeserializer tapDeserializer = new JsonTapDeserializer();
-            Mock<ICustomerSummaryDeserializer> mock = new Mock<ICustomerSummaryDeserializer>();
+            Mock<ICustomerSummaryDeserializer> mock = new();
             ICustomerSummaryDeserializer customerSerializer = mock.Object;
             ITravelControler travelControlerControler = new TravelControler(new Travel(Factory.Zones()), tapDeserializer, customerSerializer, Mock.Of<IPrinter>());
 
-            travelControlerControler.Price(inputPath);
+            travelControlerControler.Price(inputPath, String.Empty);
 
-            mock.Setup(x => x.Serialize(It.Is<Journeys>(cs => Equal(cs, Factory.CustomerSummaries()))));
+            mock.Setup(x => x.Serialize(It.Is<Journeys>(cs => Equal(cs, CustomerSummaries()))));
         }
-
+        private Journeys CustomerSummaries()
+        {
+            Journeys journeys = new Journeys
+            {
+                CustomerSummaries = new[]
+                {
+                    new CustomerSummary
+                    {
+                        CustomerId = 1,
+                        TotalCostInCents = 480,
+                        Trips = new[]
+                        {
+                            new Trip
+                            {
+                                StationStart = "A",
+                                StationEnd = "D",
+                                StartedJourneyAt = 1572242400,
+                                CostInCents = 240,
+                                ZoneFrom = 1,
+                                ZoneTo = 2
+                            },
+                            new Trip
+                            {
+                                StationStart = "D",
+                                StationEnd = "A",
+                                StartedJourneyAt = 1572282000,
+                                CostInCents = 240,
+                                ZoneFrom = 1,
+                                ZoneTo = 2
+                            }
+                        }
+                    }
+                }
+            };
+            return journeys;
+        }
+        
         [Test]
         public void AcceptanceWithGivenFiles()
         {
@@ -40,15 +73,15 @@ namespace BNPKataTest
             Mock<IPrinter> mock = new();
             ITravelControler travelControlerControler = new TravelControler(new Travel(Factory.Zones()), tapDeserializer, customerSerializer, mock.Object);
 
-            travelControlerControler.Price(inputPath);
+            travelControlerControler.Price(inputPath, string.Empty);
             
-            mock.Verify(x => x.Print(It.Is<string>(x => B(x, testOutput))));
+            mock.Verify(x => x.Print(It.Is<string>(x => EqualJson(x, testOutput)), It.IsAny<string>()));
         }
 
-        private static bool B(string x, string testOutput)
+        private static bool EqualJson(string x, string expected)
         {
             JToken jToken = JToken.Parse(x);
-            JToken token = JToken.Parse(testOutput);
+            JToken token = JToken.Parse(expected);
             return JToken.DeepEquals(token, jToken);
         }
 
