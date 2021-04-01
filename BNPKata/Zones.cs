@@ -14,16 +14,9 @@ namespace BNPKata
 
         public (Zone, Zone, int pricing) CheapestTripFrom(string startStation, string endStation)
         {
-            Zone inside = _zones
-                .Where(z => z.ContainStation(startStation) && z.ContainStation(endStation))
-                .OrderBy(x=> x.ArgPriceOfInsideTrip)
-                .FirstOrDefault();
+            Zone inside = CheapestTripWhenInsideaZone(startStation, endStation);
             
-            (Zone inside, Zone outside, int pricing) insideToOutside = _zones
-                .Where(z => z.ContainStation(startStation))
-                .OrderBy(z=> z.CheapestZoneToTravelAndPrice(EndZones(endStation)).pricing)
-                .Select(z => (z, z.CheapestZoneToTravelAndPrice(EndZones(endStation)).zone, z.CheapestZoneToTravelAndPrice(EndZones(endStation)).pricing))
-                .FirstOrDefault();
+            (Zone inside, Zone outside, int pricing) insideToOutside = CheapestTripUsingGoingOutsideTheZone(startStation, endStation);
 
             if (inside == null)
                 return insideToOutside;
@@ -32,19 +25,26 @@ namespace BNPKata
             return (inside, inside, inside.ArgPriceOfInsideTrip);
         }
 
+        private Zone CheapestTripWhenInsideaZone(string startStation, string endStation)
+        {
+            return _zones
+                .Where(z => z.ContainStation(startStation) && z.ContainStation(endStation))
+                .OrderBy(x=> x.ArgPriceOfInsideTrip)
+                .FirstOrDefault();
+        }
+
+        private (Zone z, Zone zone, int pricing) CheapestTripUsingGoingOutsideTheZone(string startStation, string endStation)
+        {
+            return _zones
+                .Where(z => z.ContainStation(startStation))
+                .OrderBy(z=> z.CheapestZoneToTravelAndPrice(EndZones(endStation)).pricing)
+                .Select(z => (z, z.CheapestZoneToTravelAndPrice(EndZones(endStation)).zone, z.CheapestZoneToTravelAndPrice(EndZones(endStation)).pricing))
+                .FirstOrDefault();
+        }
+
         private IEnumerable<Zone> EndZones(string endStation)
         {
             return _zones.Where(x => x.ContainStation(endStation));
-        }
-
-        public int To(string endStation)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public int Cost(Zone startStation, Zone endStation)
-        {
-            throw new System.NotImplementedException();
         }
     }
 }
