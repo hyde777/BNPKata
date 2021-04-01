@@ -5,7 +5,7 @@ namespace BNPKata
 {
     public interface IZones
     {
-        (Zone, Zone) From(string startStation, string endStation);
+        (Zone, Zone, int pricing) CheapestTripFrom(string startStation, string endStation);
         int To(string endStation);
         int Cost(Zone startStation, Zone endStation);
     }
@@ -19,22 +19,24 @@ namespace BNPKata
             _zones = zones;
         }
 
-        public (Zone, Zone) From(string startStation, string endStation)
+        public (Zone, Zone, int pricing) CheapestTripFrom(string startStation, string endStation)
         {
             Zone inside = _zones
                 .Where(z => z.ContainStation(startStation) && z.ContainStation(endStation))
                 .OrderBy(x=> x.ArgPriceOfInsideTrip)
                 .FirstOrDefault();
             
-            (Zone inside, Zone outside) insideToOutside = _zones
+            (Zone inside, Zone outside, int pricing) insideToOutside = _zones
                 .Where(z => z.ContainStation(startStation))
                 .OrderBy(z=> z.CheapestZoneToTravelAndPrice(EndZones(endStation)).pricing)
-                .Select(z => (z, z.CheapestZoneToTravelAndPrice(EndZones(endStation)).zone))
+                .Select(z => (z, z.CheapestZoneToTravelAndPrice(EndZones(endStation)).zone, z.CheapestZoneToTravelAndPrice(EndZones(endStation)).pricing))
                 .FirstOrDefault();
 
             if (inside == null)
                 return insideToOutside;
-            return (inside, inside);
+            if (inside.ArgPriceOfInsideTrip > insideToOutside.pricing)
+                return insideToOutside;
+            return (inside, inside, inside.ArgPriceOfInsideTrip);
         }
 
         private IEnumerable<Zone> EndZones(string endStation)

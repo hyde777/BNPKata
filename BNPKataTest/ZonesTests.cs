@@ -19,7 +19,7 @@ namespace BNPKataTest
                 zone1
             });
 
-            (Zone startZone, Zone endZone) = zones.From(startStation, endStation);
+            (Zone startZone, Zone endZone, _) = zones.CheapestTripFrom(startStation, endStation);
 
             startZone.Should().Be(zone1);
             endZone.Should().Be(zone1);
@@ -30,18 +30,20 @@ namespace BNPKataTest
         {
             string startStation = "A";
             string endStation = "B";
+            int cheapestPricing = 50;
             Zone zone1 = new(1,100, new []{ startStation, endStation},null);
-            Zone cheapestZone = new(2,50, new []{ startStation, endStation}, null);
+            Zone cheapestZone = new(2,cheapestPricing, new []{ startStation, endStation}, null);
             IZones zones = new Zones(new List<Zone>
             {
                 zone1,
                 cheapestZone
             });
 
-            (Zone startZone, Zone endZone) = zones.From(startStation, endStation);
+            (Zone startZone, Zone endZone, int pricing) = zones.CheapestTripFrom(startStation, endStation);
 
             startZone.Should().Be(cheapestZone);
             endZone.Should().Be(cheapestZone);
+            pricing.Should().Be(cheapestPricing);
         }
 
         [Test]
@@ -59,7 +61,7 @@ namespace BNPKataTest
                 zoneWithAtLeastBothStation
             });
 
-            (Zone startZone, Zone endZone) = zones.From(startStation, endStation);
+            (Zone startZone, Zone endZone, _) = zones.CheapestTripFrom(startStation, endStation);
 
             startZone.Should().Be(zoneWithAtLeastBothStation);
             endZone.Should().Be(zoneWithAtLeastBothStation);
@@ -71,7 +73,8 @@ namespace BNPKataTest
             string startStation = "A";
             string endStation = "B";
             int zoneMatricule2 = 2;
-            Zone zone1 = new(1,100, new []{ startStation}, new List<(int ZoneName, int Pricing)>{(zoneMatricule2, 50)});
+            int cheapestPricing = 50;
+            Zone zone1 = new(1,100, new []{ startStation}, new List<(int ZoneName, int Pricing)>{(zoneMatricule2, cheapestPricing)});
             Zone zone2 = new(zoneMatricule2,60, new []{ endStation}, null);
             IZones zones = new Zones(new List<Zone>
             {
@@ -79,10 +82,33 @@ namespace BNPKataTest
                 zone2
             });
         
-            (Zone startZone, Zone endZone) = zones.From(startStation, endStation);
+            (Zone startZone, Zone endZone, int pricing) = zones.CheapestTripFrom(startStation, endStation);
         
             startZone.Should().Be(zone1);
             endZone.Should().Be(zone2);
+            pricing.Should().Be(cheapestPricing);
+        }
+
+        [Test]
+        public void ShouldChooseCheapestZoneOutOfbothInsideAndInsideToOutsideZone()
+        {
+            string startStation = "A";
+            string endStation = "B";
+            int zoneMatricule2 = 2;
+            int cheapestPricing = 50;
+            Zone zone1 = new(1,100, new []{ startStation, endStation}, new List<(int ZoneName, int Pricing)>{(zoneMatricule2, cheapestPricing)});
+            Zone zone2 = new(zoneMatricule2,60, new []{ endStation}, null);
+            IZones zones = new Zones(new List<Zone>
+            {
+                zone1,
+                zone2
+            });
+        
+            (Zone startZone, Zone endZone, int pricing) = zones.CheapestTripFrom(startStation, endStation);
+        
+            startZone.Should().Be(zone1);
+            endZone.Should().Be(zone2);
+            pricing.Should().Be(pricing);
         }
     }
 }

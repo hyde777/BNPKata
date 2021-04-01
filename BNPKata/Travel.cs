@@ -32,7 +32,7 @@ namespace BNPKata
             {
                 Tap start = orderedTaps[i];
                 Tap end = orderedTaps[i + 1];
-                (Zone startZone, Zone endZone) valueTuple = _zones.From(start.Station, end.Station);
+                (Zone startZone, Zone endZone, int _) valueTuple = _zones.CheapestTripFrom(start.Station, end.Station);
                 yield return new Trip
                 {
                     StationStart = start.Station, 
