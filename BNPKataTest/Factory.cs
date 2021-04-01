@@ -18,10 +18,10 @@ namespace BNPKata
             IEnumerable<(int name, int priceOfInsideTrip, string[] stations, IEnumerable<(int ZoneName, int Pricing)> travelTo)> zonesData =
                 new List<(int name, int priceOfInsideTrip, string[] stations, IEnumerable<(int ZoneName, int Pricing)> travelTo)>
                 {
-                    (zone1Name, 240, stations1, new[] {(zone3Name, 280), (zone4Name, 300)}),
-                    (zone2Name, 240, stations2, new[] {(zone3Name, 280), (zone4Name, 300)}),
-                    (zone3Name, 200, stations3, new[] {(zone1Name, 280), (zone2Name, 280)}),
-                    (zone4Name, 200, stations4, new[] {(zone1Name, 300), (zone2Name, 300)})
+                    (zone1Name, 240, stations1, new[] {(zone2Name, 240), (zone3Name, 280), (zone4Name, 300)}),
+                    (zone2Name, 240, stations2, new[] {(zone1Name, 240), (zone3Name, 280), (zone4Name, 300)}),
+                    (zone3Name, 200, stations3, new[] {(zone4Name, 200), (zone1Name, 280), (zone2Name, 280)}),
+                    (zone4Name, 200, stations4, new[] {(zone3Name, 200), (zone1Name, 300), (zone2Name, 300)})
                 };
             IEnumerable<Zone> zones = zonesData.Select(x => new Zone(x.name, x.priceOfInsideTrip, x.stations, x.travelTo));
             return new Zones(zones);

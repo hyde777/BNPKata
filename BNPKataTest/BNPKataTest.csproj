@@ -29,4 +29,11 @@
       </Content>
     </ItemGroup>
 
+    <ItemGroup>
+      <None Remove="Input1.json" />
+      <Content Include="Input1.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
+
 </Project>

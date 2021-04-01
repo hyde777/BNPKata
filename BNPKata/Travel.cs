@@ -18,10 +18,11 @@ namespace BNPKata
             IEnumerable<CustomerSummary> customerSummaries = tapByCustomerId.Select(x =>
             {
                 var trips = CreateTrips(x.ToList()).ToList();
+                int totalCostInCents = trips.Select(t => t.CostInCents).Sum();
                 return new CustomerSummary
                 {
                     CustomerId = x.Key,
-                    TotalCostInCents = trips.Select(t => t.CostInCents).Sum(),
+                    TotalCostInCents = totalCostInCents,
                     Trips = trips.ToArray()
                 };
             });
